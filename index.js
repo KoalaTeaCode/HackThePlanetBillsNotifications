@@ -37,16 +37,16 @@ async function parseBills() {
 
   await browser.close();
 
-  return bills.slice(0, 5).map(b => `${b.title}: Learn more at ${b.link}`).join('\n')
+  return bills.slice(0, 5).map(b => `${b.title}: Learn more at ${b.link}`).join('\n\n')
 }
 
-const cronJobFrequency = '*/1 * * * *';
-// const cronJobFrequency = '0 17 * * 0'; // Send every sunday
+// const cronJobFrequency = '*/1 * * * *';
+const cronJobFrequency = '0 17 * * 0'; // Send every sunday
 cron.schedule(cronJobFrequency, async () => {
   console.log("Get bills");
   const billMessage = await parseBills();
   console.log(billMessage);
   for (const num of numbers) {
-    await sendSMS(num, billMessage);
+    await sendSMS(num, `Congress Weekly Climate Change Bills:\n\n ${billMessage}`);
   }
 });
