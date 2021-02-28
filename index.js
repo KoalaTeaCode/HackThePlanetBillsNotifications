@@ -1,6 +1,7 @@
 require('dotenv').config()
 const cron = require('node-cron');
 const puppeteer = require('puppeteer');
+const newrelic = require('newrelic');
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
